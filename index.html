@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Find for You: vitrine independente de produtos e ofertas do Mercado Livre, com links de afiliado e informações transparentes.">
   <meta name="theme-color" content="#7257e8">
-  <title>Find for You — Vitrine independente de ofertas</title>
+  <title>Find for You — Ofertas selecionadas</title>
   <style>
     :root{--ink:#172033;--muted:#667085;--line:#e4e7ef;--paper:#f7f8fc;--white:#fff;--accent:#7257e8;--accent2:#5638d5;--green:#0f9f78;--pink:#ff6f91;--cyan:#39b8d5;--yellow:#ffbd59;--shadow:0 14px 38px rgba(38,35,84,.11)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
@@ -57,7 +57,7 @@
     <div class="hero-art"><span class="art-small">FIND FOR YOU / SELEÇÃO</span><div class="art-big">Boas escolhas começam aqui.</div><span class="art-foot">Produtos selecionados para facilitar seu dia.</span></div>
   </div>
 </section>
-<main class="wrap" id="produtos">
+<main class="wrap" id="produtos"><div id="setupWarning" class="notice" style="display:none;margin:0 0 22px"><strong>Configuração pendente:</strong> conecte o projeto Supabase antes de usar o catálogo público. Consulte o arquivo LEIA-ME incluído no pacote.</div>
   <div class="section-head"><div><h2>Explore os achadinhos</h2><p>Encontre produtos por categoria ou pesquise pelo nome.</p></div></div>
   <div class="categories" id="categories"></div>
   <div class="toolbar"><span class="count" id="count"></span><select class="sort" id="sort"><option value="featured">Ordenar: Destaques</option><option value="low">Menor preço</option><option value="high">Maior preço</option><option value="name">Nome A–Z</option></select></div>
@@ -98,7 +98,22 @@
 <div class="modal" id="adminModal">
   <div class="panel">
     <div class="panel-head"><h2>Gerenciar produtos</h2><button class="close" id="closeAdmin">×</button></div>
-    <p class="hint">PAINEL DE TESTE: adicione e edite produtos apenas para visualizar nesta máquina e neste navegador. Os dados ficam no armazenamento local e NÃO alteram a vitrine publicada para outros visitantes. Antes de divulgar a loja, será necessário publicar um catálogo centralizado e atualizar os produtos e links no arquivo do site. Confira preços e disponibilidade no Mercado Livre antes de cadastrar.</p>
+    <p class="hint">PAINEL ADMINISTRATIVO PRIVADO: entre com seu e-mail e senha para gerenciar o catálogo centralizado. As alterações salvas no banco de dados serão exibidas para todos os visitantes. Confira preços, disponibilidade e links de afiliado antes de publicar cada oferta.</p>
+
+    <div id="loginBox">
+      <p class="hint">Acesso restrito ao administrador. Entre com as credenciais cadastradas no Supabase.</p>
+      <form id="loginForm" class="formgrid">
+        <div class="field full"><label for="adminEmail">E-mail administrativo</label><input id="adminEmail" type="email" autocomplete="username" required placeholder="seu@email.com"></div>
+        <div class="field full"><label for="adminPassword">Senha</label><input id="adminPassword" type="password" autocomplete="current-password" required placeholder="Sua senha"></div>
+        <div class="field full"><button class="primary" type="submit">Entrar no painel</button></div>
+      </form>
+      <p class="hint" id="authMessage">O painel não permite cadastro público. A conta administrativa deve ser criada no Supabase e autorizada no banco de dados.</p>
+    </div>
+    <div id="adminArea" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px">
+        <span class="hint" id="adminIdentity">Sessão administrativa ativa</span>
+        <button class="secondary" type="button" id="logoutBtn">Sair</button>
+      </div>
     <form id="productForm">
       <input type="hidden" id="editId">
       <div class="formgrid">
@@ -114,40 +129,102 @@
       <div class="form-actions"><button class="primary" type="submit" id="saveProduct">Salvar produto</button><button class="secondary" type="button" id="clearForm">Limpar campos</button></div>
     </form>
     <div class="product-list"><strong style="font-size:14px">Produtos cadastrados</strong><div id="manageList"></div></div>
+    </div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const STORAGE_KEY='findforyou_products_v1';
-const seed=[
- {id:'demo1',name:'Organizador multiuso para casa',category:'Casa',market:'Mercado Livre',price:39.90,old:59.90,image:'',link:'',desc:'Exemplo de cadastro: substitua pelo seu produto e link de afiliado.',demo:true},
- {id:'demo2',name:'Suporte ajustável para celular',category:'Tecnologia',market:'Mercado Livre',price:29.90,old:0,image:'',link:'',desc:'Um item prático para facilitar o dia a dia.',demo:true},
- {id:'demo3',name:'Kit de ferramentas domésticas',category:'Ferramentas',market:'Mercado Livre',price:79.90,old:99.90,image:'',link:'',desc:'Exemplo ilustrativo. Cadastre um produto real para publicar.',demo:true},
- {id:'demo4',name:'Garrafa térmica portátil',category:'Utilidades',market:'Mercado Livre',price:49.90,old:0,image:'',link:'',desc:'Produto demonstrativo para visualizar a vitrine.',demo:true}
-];
-let products=loadProducts(),active='Todos',query='';
-function loadProducts(){try{const d=JSON.parse(localStorage.getItem(STORAGE_KEY));return Array.isArray(d)?d:seed}catch(e){return seed}}
-function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(products))}
+const SUPABASE_URL = "https://whcgpyusiaipquatbkar.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_Vq70CjqFeo38pZe-JE1CQg_TW0Uk63r";
+const supabaseConfigured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("COLE_AQUI") && SUPABASE_ANON_KEY.length > 30 && !SUPABASE_ANON_KEY.includes("COLE_AQUI");
+const supabaseClient = supabaseConfigured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+const $ = id => document.getElementById(id);
+let products = [], active = 'Todos', query = '', currentUser = null;
+const categoryOptions = ['Casa','Tecnologia','Beleza','Moda','Ferramentas','Esporte e lazer','Utilidades','Suplementos','Calçados','Segurança','Eletrônicos','Outros'];
 function money(n){return Number(n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function renderCategories(){let cats=['Todos',...new Set(products.map(p=>p.category))];document.getElementById('categories').innerHTML=cats.map(c=>`<button class="chip ${active===c?'active':''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('');document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{active=b.dataset.cat;render()})}
+function toast(t){let e=$('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2800)}
+function dbProduct(row){return {id:row.id,name:row.name,category:row.category,market:row.market||'Mercado Livre',price:Number(row.price)||0,old:Number(row.old_price)||0,image:row.image_url||'',link:row.affiliate_url||'',desc:row.description||''}}
+function renderCategories(){let cats=['Todos',...new Set(products.map(p=>p.category))];$('categories').innerHTML=cats.map(c=>`<button class="chip ${active===c?'active':''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('');document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{active=b.dataset.cat;render()})}
 function render(){
- renderCategories();let list=products.filter(p=>(active==='Todos'||p.category===active)&&(`${p.name} ${p.category} ${p.desc||''} ${p.market}`).toLowerCase().includes(query.toLowerCase()));
- const sort=document.getElementById('sort').value;if(sort==='low')list.sort((a,b)=>(a.price||0)-(b.price||0));if(sort==='high')list.sort((a,b)=>(b.price||0)-(a.price||0));if(sort==='name')list.sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
- document.getElementById('count').textContent=`${list.length} produto(s) encontrado(s)`;
- document.getElementById('products').innerHTML=list.length?list.map(p=>`<article class="product"><div class="product-img">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" onerror="this.remove()">`:`<div class="placeholder">✦</div>`}<span class="tag">${esc(p.market)}</span></div><div class="product-body"><span class="category">${esc(p.category)}</span><h3>${esc(p.name)}</h3><p class="desc">${esc(p.desc||'Confira os detalhes e as condições no marketplace.')}</p><div class="prices">${p.price?`<span class="price">${money(p.price)}</span>`:'<span class="price">Confira o preço</span>'}${p.old>p.price?`<span class="old">${money(p.old)}</span>`:''}</div>${p.link?`<a class="buy" href="${esc(p.link)}" target="_blank" rel="sponsored nofollow noopener">Ver produto ↗</a>`:`<span class="buy" style="opacity:.55;cursor:not-allowed">Exemplo — adicione seu link</span>`}</div></article>`).join(''):'<div class="empty">Nenhum produto encontrado. Tente outra busca ou categoria.</div>';
- renderManage();
+ renderCategories();
+ let list=products.filter(p=>(active==='Todos'||p.category===active)&&(`${p.name} ${p.category} ${p.desc||''} ${p.market}`).toLowerCase().includes(query.toLowerCase()));
+ const sort=$('sort').value;if(sort==='low')list.sort((a,b)=>(a.price||0)-(b.price||0));if(sort==='high')list.sort((a,b)=>(b.price||0)-(a.price||0));if(sort==='name')list.sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
+ $('count').textContent=`${list.length} produto(s) encontrado(s)`;
+ $('products').innerHTML=list.length?list.map(p=>`<article class="product"><div class="product-img">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" onerror="this.remove()">`:`<div class="placeholder">✦</div>`}<span class="tag">${esc(p.market)}</span></div><div class="product-body"><span class="category">${esc(p.category)}</span><h3>${esc(p.name)}</h3><p class="desc">${esc(p.desc||'Confira os detalhes e as condições no marketplace.')}</p><div class="prices">${p.price?`<span class="price">${money(p.price)}</span>`:'<span class="price">Confira o preço</span>'}${p.old>p.price?`<span class="old">${money(p.old)}</span>`:''}</div>${p.link?`<a class="buy" href="${esc(p.link)}" target="_blank" rel="sponsored nofollow noopener">Ver produto ↗</a>`:''}</div></article>`).join(''):'<div class="empty">Ainda estamos organizando as ofertas. Volte em breve para conferir as novidades.</div>';
+ if(currentUser) renderManage();
 }
-function renderManage(){document.getElementById('manageList').innerHTML=products.length?products.map(p=>`<div class="manage-row"><span><strong>${esc(p.name)}</strong><br><span style="color:#667085">${esc(p.market)} · ${esc(p.category)}</span></span><span style="display:flex;gap:7px"><button type="button" data-edit="${esc(p.id)}">Editar</button><button type="button" data-delete="${esc(p.id)}">Excluir</button></span></div>`).join(''):'<p class="hint">Nenhum produto cadastrado.</p>';
- document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editProduct(b.dataset.edit));document.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteProduct(b.dataset.delete))}
-function toast(t){let e=document.getElementById('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2400)}
-function resetForm(){document.getElementById('productForm').reset();document.getElementById('editId').value='';document.getElementById('saveProduct').textContent='Salvar produto'}
-function editProduct(id){let p=products.find(x=>x.id===id);if(!p)return;document.getElementById('editId').value=p.id;document.getElementById('pname').value=p.name;document.getElementById('pcategory').value=p.category;document.getElementById('pmarket').value=p.market;document.getElementById('pprice').value=p.price||'';document.getElementById('pold').value=p.old||'';document.getElementById('pimage').value=p.image||'';document.getElementById('plink').value=p.link||'';document.getElementById('pdesc').value=p.desc||'';document.getElementById('saveProduct').textContent='Atualizar produto';document.getElementById('productForm').scrollIntoView({behavior:'smooth'})}
-function deleteProduct(id){if(!confirm('Excluir este produto?'))return;products=products.filter(p=>p.id!==id);save();render();toast('Produto excluído.')}
-document.getElementById('productForm').onsubmit=e=>{e.preventDefault();let id=document.getElementById('editId').value;let p={id:id||'p'+Date.now(),name:document.getElementById('pname').value.trim(),category:document.getElementById('pcategory').value,market:document.getElementById('pmarket').value,price:Number(document.getElementById('pprice').value)||0,old:Number(document.getElementById('pold').value)||0,image:document.getElementById('pimage').value.trim(),link:document.getElementById('plink').value.trim(),desc:document.getElementById('pdesc').value.trim()};if(!/^https?:\/\//i.test(p.link)){toast('Insira um link válido começando com https://');return}if(p.image&&!/^https?:\/\//i.test(p.image)){toast('A URL da imagem precisa começar com https://');return}if(id)products=products.map(x=>x.id===id?p:x);else products.unshift(p);save();resetForm();render();toast('Produto salvo com sucesso!')};
-document.getElementById('openAdmin').onclick=()=>document.getElementById('adminModal').classList.add('open');document.getElementById('closeAdmin').onclick=()=>document.getElementById('adminModal').classList.remove('open');document.getElementById('adminModal').onclick=e=>{if(e.target.id==='adminModal')e.currentTarget.classList.remove('open')};document.getElementById('clearForm').onclick=resetForm;
-document.getElementById('search').oninput=e=>{query=e.target.value;render()};document.getElementById('searchBtn').onclick=()=>{query=document.getElementById('search').value;render()};document.getElementById('sort').onchange=render;document.getElementById('year').textContent=new Date().getFullYear();
-render();
+function renderManage(){
+ $('manageList').innerHTML=products.length?products.map(p=>`<div class="manage-row"><span><strong>${esc(p.name)}</strong><br><span style="color:#667085">${esc(p.market)} · ${esc(p.category)}</span></span><span style="display:flex;gap:7px"><button type="button" data-edit="${esc(p.id)}">Editar</button><button type="button" data-delete="${esc(p.id)}">Excluir</button></span></div>`).join(''):'<p class="hint">Nenhum produto cadastrado.</p>';
+ document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editProduct(b.dataset.edit));
+ document.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteProduct(b.dataset.delete));
+}
+function resetForm(){$('productForm').reset();$('editId').value='';$('saveProduct').textContent='Salvar produto'}
+function editProduct(id){let p=products.find(x=>x.id===id);if(!p)return;$('editId').value=p.id;$('pname').value=p.name;$('pcategory').value=p.category;$('pmarket').value=p.market;$('pprice').value=p.price||'';$('pold').value=p.old||'';$('pimage').value=p.image||'';$('plink').value=p.link||'';$('pdesc').value=p.desc||'';$('saveProduct').textContent='Atualizar produto';$('productForm').scrollIntoView({behavior:'smooth'})}
+async function loadProducts(){
+ if(!supabaseClient){$('setupWarning').style.display='block';products=[];render();return}
+ const {data,error}=await supabaseClient.from('products').select('*').eq('is_active',true).order('created_at',{ascending:false});
+ if(error){console.error(error);toast('Não foi possível carregar as ofertas. Verifique a configuração do banco.');products=[]}
+ else products=data.map(dbProduct);
+ render();
+}
+async function loadAdminProducts(){
+ if(!currentUser)return;
+ const {data,error}=await supabaseClient.from('products').select('*').order('created_at',{ascending:false});
+ if(error){toast('Erro ao carregar produtos no painel.');return}
+ products=data.map(dbProduct);render();
+}
+function setAuthView(user){
+ currentUser=user;
+ $('loginBox').style.display=user?'none':'block';
+ $('adminArea').style.display=user?'block':'none';
+ if(user){$('adminIdentity').textContent='Conectado como '+user.email;loadAdminProducts()}
+}
+async function checkSession(){
+ if(!supabaseClient)return;
+ const {data}=await supabaseClient.auth.getSession();
+ if(data.session){const {data:allowed,error}=await supabaseClient.from('admin_users').select('user_id').eq('user_id',data.session.user.id).maybeSingle();
+   if(error||!allowed){await supabaseClient.auth.signOut();setAuthView(null);$('authMessage').textContent='Esta conta não está autorizada como administradora.';return}
+   setAuthView(data.session.user);
+ }else setAuthView(null);
+}
+async function deleteProduct(id){
+ if(!confirm('Excluir este produto do catálogo público?'))return;
+ const {error}=await supabaseClient.from('products').delete().eq('id',id);
+ if(error){toast('Não foi possível excluir. Verifique suas permissões.');return}
+ await loadAdminProducts();toast('Produto removido da vitrine.');
+}
+$('productForm').onsubmit=async e=>{
+ e.preventDefault();if(!currentUser){toast('Entre no painel para continuar.');return}
+ const p={name:$('pname').value.trim(),category:$('pcategory').value,market:'Mercado Livre',price:Number($('pprice').value)||null,old_price:Number($('pold').value)||null,image_url:$('pimage').value.trim()||null,affiliate_url:$('plink').value.trim(),description:$('pdesc').value.trim(),is_active:true};
+ if(!/^https?:\/\//i.test(p.affiliate_url)){toast('Insira um link de afiliado válido.');return}
+ if(p.image_url&&!/^https?:\/\//i.test(p.image_url)){toast('A imagem precisa ter um endereço https:// válido.');return}
+ const id=$('editId').value;
+ const result=id?await supabaseClient.from('products').update(p).eq('id',id):await supabaseClient.from('products').insert(p);
+ if(result.error){console.error(result.error);toast('Erro ao salvar. Confira a conexão e as permissões do administrador.');return}
+ resetForm();await loadAdminProducts();toast('Oferta salva e atualizada para todos os visitantes!');
+};
+$('loginForm').onsubmit=async e=>{
+ e.preventDefault();if(!supabaseClient){$('authMessage').textContent='Configure primeiro a URL e a chave pública do Supabase no arquivo.';return}
+ const {data,error}=await supabaseClient.auth.signInWithPassword({email:$('adminEmail').value.trim(),password:$('adminPassword').value});
+ if(error){$('authMessage').textContent='Não foi possível entrar. Confira e-mail e senha.';return}
+ const {data:allowed,error:checkError}=await supabaseClient.from('admin_users').select('user_id').eq('user_id',data.user.id).maybeSingle();
+ if(checkError||!allowed){await supabaseClient.auth.signOut();$('authMessage').textContent='Login válido, mas esta conta ainda não foi autorizada como administradora.';return}
+ $('authMessage').textContent='';setAuthView(data.user);await loadAdminProducts();
+};
+$('logoutBtn').onclick=async()=>{await supabaseClient.auth.signOut();setAuthView(null);resetForm();toast('Você saiu do painel.')};
+$('openAdmin').onclick=()=>{$('adminModal').classList.add('open');if(!supabaseClient){$('authMessage').textContent='O Supabase ainda não foi configurado neste arquivo.';return}checkSession()};
+$('closeAdmin').onclick=()=>$('adminModal').classList.remove('open');
+$('adminModal').onclick=e=>{if(e.target.id==='adminModal')e.currentTarget.classList.remove('open')};
+$('clearForm').onclick=resetForm;
+$('search').oninput=e=>{query=e.target.value;render()};
+$('searchBtn').onclick=()=>{query=$('search').value;render()};
+$('sort').onchange=render;$('year').textContent=new Date().getFullYear();
+if(supabaseClient){supabaseClient.auth.onAuthStateChange((_event,session)=>{if(!session)setAuthView(null)});}
+loadProducts();
+
 </script>
 </body>
 </html>
