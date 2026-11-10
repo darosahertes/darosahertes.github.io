@@ -7,33 +7,33 @@
   <meta name="theme-color" content="#7257e8">
   <title>Find for You — Ofertas selecionadas</title>
   <style>
-    :root{--ink:#172033;--muted:#667085;--line:#e4e7ef;--paper:#f7f8fc;--white:#fff;--accent:#7257e8;--accent2:#5638d5;--green:#0f9f78;--pink:#ff6f91;--cyan:#39b8d5;--yellow:#ffbd59;--shadow:0 14px 38px rgba(38,35,84,.11)}
+    :root{--ink:#172033;--muted:#667085;--line:#e4e7ef;--paper:#f7f8fc;--white:#fff;--accent:#6420c8;--accent2:#4b0e9f;--green:#0f9f78;--pink:#ff6f91;--cyan:#39b8d5;--yellow:#ffbd59;--shadow:0 14px 38px rgba(38,35,84,.11)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
     button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{width:min(1160px,calc(100% - 36px));margin:auto}
     header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.top{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
     .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);font-weight:850;font-size:22px;letter-spacing:-.8px}.brandmark{width:37px;height:37px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--pink));display:grid;place-items:center;color:#fff;font-weight:900;font-size:20px}.brand span em{font-style:normal;color:var(--accent)}
     nav{display:flex;gap:24px;align-items:center}nav a{color:#475467;text-decoration:none;font-size:14px;font-weight:650}nav a:hover{color:var(--accent)}
     .admin-btn,.primary{border:0;border-radius:12px;background:var(--ink);color:#fff;padding:11px 16px;font-weight:750}.admin-btn:hover{background:#283449}
-    .hero{padding:54px 0 38px;background:radial-gradient(ellipse at 85% 15%,rgba(114,87,232,.20),transparent 35%),radial-gradient(ellipse at 12% 85%,rgba(255,111,145,.13),transparent 32%),linear-gradient(135deg,#fff 0%,#f5f4ff 72%)}.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:35px;align-items:center}
-    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--accent2);background:#fff0ea;padding:7px 11px;border-radius:99px;font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+    .hero{padding:54px 0 38px;background:radial-gradient(ellipse at 85% 15%,rgba(100,32,200,.24),transparent 35%),radial-gradient(ellipse at 12% 85%,rgba(255,111,145,.13),transparent 32%),linear-gradient(135deg,#fff 0%,#f5f4ff 72%)}.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:35px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--accent2);background:#f1e8ff;padding:7px 11px;border-radius:99px;font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
     h1{font-size:clamp(38px,5.4vw,64px);line-height:1.02;letter-spacing:-2.7px;margin:17px 0}.hero p{max-width:570px;color:#667085;font-size:17px;line-height:1.65;margin:0 0 25px}
-    .hero-art{min-height:245px;border-radius:28px;background:linear-gradient(135deg,#392b83 0%,#7257e8 52%,#e86e9b 100%);padding:24px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);overflow:hidden;position:relative}.hero-art:after{content:"";position:absolute;width:220px;height:220px;border:35px solid rgba(255,255,255,.08);border-radius:50%;right:-40px;top:-45px}.art-small{font-size:12px;color:#cbd5e1;letter-spacing:1.5px;text-transform:uppercase}.art-big{font-size:34px;line-height:1.05;font-weight:850;letter-spacing:-1.2px;max-width:260px;z-index:1}.art-foot{font-size:13px;color:#cbd5e1;z-index:1}
-    .searchbar{display:flex;gap:10px;max-width:600px}.searchbar input{flex:1;min-width:0;border:1px solid var(--line);background:#fff;border-radius:13px;padding:14px 16px;outline:none}.searchbar input:focus,.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px #ff6b3520}
+    .hero-art{min-height:245px;border-radius:28px;background:linear-gradient(135deg,#26085f 0%,#6420c8 58%,#8b45e8 100%);padding:24px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);overflow:hidden;position:relative}.hero-art:after{content:"";position:absolute;width:220px;height:220px;border:35px solid rgba(255,255,255,.08);border-radius:50%;right:-40px;top:-45px}.art-small{font-size:12px;color:#cbd5e1;letter-spacing:1.5px;text-transform:uppercase}.art-big{font-size:34px;line-height:1.05;font-weight:850;letter-spacing:-1.2px;max-width:260px;z-index:1}.art-foot{font-size:13px;color:#cbd5e1;z-index:1}
+    .searchbar{display:flex;gap:10px;max-width:600px}.searchbar input{flex:1;min-width:0;border:1px solid var(--line);background:#fff;border-radius:13px;padding:14px 16px;outline:none}.searchbar input:focus,.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px #6420c820}
     .primary{background:var(--accent);padding:14px 20px}.primary:hover{background:var(--accent2)}
     main{padding:32px 0 70px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:18px}.section-head h2{font-size:25px;letter-spacing:-.8px;margin:0}.section-head p{color:var(--muted);margin:5px 0 0;font-size:14px}
-    .categories{display:flex;gap:9px;overflow:auto;padding:2px 0 20px}.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;color:#475467;border-radius:99px;padding:9px 14px;font-size:13px;font-weight:700}.chip.active,.chip:hover{background:linear-gradient(110deg,var(--accent),#9b63e8);color:#fff;border-color:transparent}
+    .categories{display:flex;gap:9px;overflow:auto;padding:2px 0 20px}.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;color:#475467;border-radius:99px;padding:9px 14px;font-size:13px;font-weight:700}.chip.active,.chip:hover{background:linear-gradient(110deg,var(--accent),#8b45e8);color:#fff;border-color:transparent}
     .toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 18px}.count{font-size:13px;color:var(--muted)}.sort{border:1px solid var(--line);border-radius:10px;background:#fff;padding:9px 12px;color:#475467}
     .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}.product{background:#fff;border:1px solid var(--line);border-radius:17px;overflow:hidden;transition:.2s;display:flex;flex-direction:column}.product:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#c9c0ff}
     .product-img{height:190px;background:linear-gradient(135deg,#f1efff,#fff0f4);display:grid;place-items:center;overflow:hidden;position:relative}.product-img img{width:100%;height:100%;object-fit:cover}.placeholder{font-size:52px}.tag{position:absolute;left:12px;top:12px;background:#fff;border-radius:99px;padding:6px 9px;font-size:10px;font-weight:850;color:#344054;box-shadow:0 3px 10px #00000010}
-    .product-body{padding:14px;display:flex;flex-direction:column;flex:1}.category{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:#7257e8;font-weight:800}.product h3{font-size:15px;line-height:1.35;margin:7px 0 8px;min-height:40px}.desc{font-size:12px;color:var(--muted);line-height:1.5;margin:0 0 12px;flex:1}.prices{display:flex;align-items:baseline;gap:8px;margin:0 0 12px}.price{font-size:19px;font-weight:850;letter-spacing:-.5px}.old{font-size:12px;color:#98a2b3;text-decoration:line-through}.buy{display:block;text-align:center;text-decoration:none;background:linear-gradient(110deg,var(--accent),#9b63e8);color:#fff;border-radius:10px;padding:11px;font-size:13px;font-weight:800}.buy:hover{background:linear-gradient(110deg,#5638d5,#e86e9b)}.empty{grid-column:1/-1;text-align:center;padding:50px 20px;background:#fff;border:1px dashed #d0d5dd;border-radius:16px;color:var(--muted)}
+    .product-body{padding:14px;display:flex;flex-direction:column;flex:1}.category{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:#6420c8;font-weight:800}.product h3{font-size:15px;line-height:1.35;margin:7px 0 8px;min-height:40px}.desc{font-size:12px;color:var(--muted);line-height:1.5;margin:0 0 12px;flex:1}.prices{display:flex;align-items:baseline;gap:8px;margin:0 0 12px}.price{font-size:19px;font-weight:850;letter-spacing:-.5px}.old{font-size:12px;color:#98a2b3;text-decoration:line-through}.buy{display:block;text-align:center;text-decoration:none;background:linear-gradient(110deg,var(--accent),#8b45e8);color:#fff;border-radius:10px;padding:11px;font-size:13px;font-weight:800}.buy:hover{background:linear-gradient(110deg,#4b0e9f,#7b2fe0)}.empty{grid-column:1/-1;text-align:center;padding:50px 20px;background:#fff;border:1px dashed #d0d5dd;border-radius:16px;color:var(--muted)}
     .notice{margin-top:27px;padding:17px 19px;background:linear-gradient(120deg,#f0edff,#fff2f6);border:1px solid #ded7ff;border-radius:13px;color:#667085;font-size:12px;line-height:1.6}.notice strong{color:#344054}
-    footer{background:linear-gradient(120deg,#21194b,#392b83 65%,#5638a8);color:#e5e1ff;padding:38px 0}.foot{display:flex;justify-content:space-between;gap:25px;align-items:start}.foot strong{color:#fff;font-size:18px}.foot p{font-size:12px;line-height:1.6;max-width:560px;margin:9px 0 0}.foot small{font-size:11px;color:#98a2b3}
+    footer{background:linear-gradient(120deg,#1d0648,#3e0b85 65%,#6420c8);color:#e5e1ff;padding:38px 0}.foot{display:flex;justify-content:space-between;gap:25px;align-items:start}.foot strong{color:#fff;font-size:18px}.foot p{font-size:12px;line-height:1.6;max-width:560px;margin:9px 0 0}.foot small{font-size:11px;color:#98a2b3}
     .info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .info-card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:20px;box-shadow:0 8px 25px rgba(38,35,84,.045)}
-    .info-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#eeeaff,#ffeaf1);color:#7257e8;font-size:19px;font-weight:900}
+    .info-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#eeeaff,#ffeaf1);color:#6420c8;font-size:19px;font-weight:900}
     .info-card h3{margin:13px 0 7px;font-size:16px;letter-spacing:-.3px}
     .info-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
-    .modal{position:fixed;inset:0;background:#101828a8;z-index:30;display:none;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.panel{width:min(760px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:20px;padding:23px;box-shadow:0 25px 70px #0003}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.panel-head h2{margin:0;font-size:22px}.close{border:0;background:#f2f4f7;border-radius:9px;width:35px;height:35px;font-size:20px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:800;color:#475467}.field input,.field select,.field textarea{border:1px solid #d0d5dd;border-radius:10px;padding:11px 12px;outline:none;width:100%;background:#fff}.field textarea{min-height:75px;resize:vertical}.form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.secondary{border:1px solid var(--line);background:#fff;color:#344054;border-radius:10px;padding:11px 14px;font-weight:750}.product-list{margin-top:22px;border-top:1px solid var(--line);padding-top:16px}.manage-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #f0f1f3;font-size:13px}.manage-row button{border:0;background:#fff0ea;color:#c2410c;padding:7px 10px;border-radius:8px;font-weight:750}.hint{font-size:12px;color:var(--muted);line-height:1.55;margin:8px 0 0}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111827;color:white;padding:12px 17px;border-radius:10px;z-index:50;display:none;font-size:13px}
+    .modal{position:fixed;inset:0;background:#101828a8;z-index:30;display:none;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.panel{width:min(760px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:20px;padding:23px;box-shadow:0 25px 70px #0003}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.panel-head h2{margin:0;font-size:22px}.close{border:0;background:#f2f4f7;border-radius:9px;width:35px;height:35px;font-size:20px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:800;color:#475467}.field input,.field select,.field textarea{border:1px solid #d0d5dd;border-radius:10px;padding:11px 12px;outline:none;width:100%;background:#fff}.field textarea{min-height:75px;resize:vertical}.form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.secondary{border:1px solid var(--line);background:#fff;color:#344054;border-radius:10px;padding:11px 14px;font-weight:750}.product-list{margin-top:22px;border-top:1px solid var(--line);padding-top:16px}.manage-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #f0f1f3;font-size:13px}.manage-row button{border:0;background:#f1e8ff;color:#4b0e9f;padding:7px 10px;border-radius:8px;font-weight:750}.hint{font-size:12px;color:var(--muted);line-height:1.55;margin:8px 0 0}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111827;color:white;padding:12px 17px;border-radius:10px;z-index:50;display:none;font-size:13px}
     @media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero-grid{grid-template-columns:1fr .7fr}}
     @media(max-width:650px){.info-grid{grid-template-columns:1fr}.wrap{width:min(100% - 28px,1160px)}.top{height:66px}.brand{font-size:19px}nav{display:none}.hero{padding:38px 0 28px}.hero-grid{grid-template-columns:1fr}.hero-art{min-height:170px}.art-big{font-size:28px}.hero p{font-size:15px}.searchbar{flex-direction:column}.searchbar .primary{width:100%}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-img{height:145px}.product-body{padding:11px}.product h3{font-size:13px;min-height:36px}.desc{font-size:11px}.price{font-size:16px}.section-head h2{font-size:22px}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.foot{flex-direction:column}.admin-btn{padding:9px 11px;font-size:12px}}
   </style>
@@ -43,7 +43,7 @@
   <div class="wrap top">
     <a class="brand" href="#"><span class="brandmark">F</span><span>Find <em>for You</em></span></a>
     <nav><a href="#produtos">Produtos</a><a href="#categorias">Categorias</a><a href="#como-funciona">Como funciona</a><a href="#transparencia">Transparência</a></nav>
-    <button class="admin-btn" id="openAdmin">Painel da loja ↗</button>
+    
   </div>
 </header>
 <section class="hero">
@@ -84,16 +84,16 @@
     <article class="info-card" id="privacidade">
       <span class="info-icon">⌁</span>
       <h3>Privacidade</h3>
-      <p>Esta versão não possui cadastro de usuários, checkout ou formulário de coleta de dados pessoais. O painel de demonstração pode armazenar produtos apenas no armazenamento local do navegador em que foi utilizado. Ao acessar links externos, aplicam-se também as políticas de privacidade do respectivo site.</p>
+      <p>Esta versão não possui cadastro de usuários, checkout ou formulário de coleta de dados pessoais. O catálogo utiliza o Supabase para armazenar informações dos produtos e disponibilizá-las aos visitantes. Não oferecemos cadastro de usuários nem checkout. Ao acessar links externos, aplicam-se também as políticas de privacidade do respectivo site.</p>
     </article>
     <article class="info-card" id="contato">
       <span class="info-icon">✉</span>
       <h3>Contato e correções</h3>
-      <p>Para dúvidas, correções de informações ou comunicação comercial, utilize os canais oficiais de contato que serão informados nas redes sociais da Find for You. Não compartilhe dados de pagamento ou informações sensíveis com esta página.</p>
+      <p>Para dúvidas, correções de informações ou comunicação comercial, escreva para <a href="mailto:felipehertesdarosa@gmail.com">felipehertesdarosa@gmail.com</a>. Não compartilhe dados de pagamento ou informações sensíveis com esta página.</p>
     </article>
   </div>
 </section>
-<footer><div class="wrap foot"><div><strong>Find for You</strong><p>Descobertas úteis, escolhas inteligentes. A Find for You é uma vitrine independente, participa do programa de afiliados do Mercado Livre e não é propriedade, representante ou parceira oficial do marketplace.</p></div><small>© <span id="year"></span> Find for You. Todos os direitos reservados.</small></div></footer>
+<footer><div class="wrap foot"><div><strong>Find for You</strong><p><a href="mailto:felipehertesdarosa@gmail.com" style="color:#fff">felipehertesdarosa@gmail.com</a><br>Descobertas úteis, escolhas inteligentes. A Find for You é uma vitrine independente, participa do programa de afiliados do Mercado Livre e não é propriedade, representante ou parceira oficial do marketplace.</p></div><small><a href="#" id="openAdmin" style="color:#d8ccff">Acesso administrativo</a><br>© <span id="year"></span> Find for You. Todos os direitos reservados.</small></div></footer>
 
 <div class="modal" id="adminModal">
   <div class="panel">
@@ -128,6 +128,11 @@
       </div>
       <div class="form-actions"><button class="primary" type="submit" id="saveProduct">Salvar produto</button><button class="secondary" type="button" id="clearForm">Limpar campos</button></div>
     </form>
+    <div class="product-list"><strong style="font-size:14px">Gerenciar departamentos</strong>
+      <p class="hint">Adicione departamentos à vitrine. Para desativar, use o botão ao lado do nome.</p>
+      <div class="form-actions"><input id="newDepartment" aria-label="Novo departamento" placeholder="Nome do departamento" style="flex:1;min-width:180px;border:1px solid #d0d5dd;border-radius:10px;padding:11px 12px"><button class="secondary" type="button" id="addDepartment">Adicionar</button></div>
+      <div id="departmentList"></div>
+    </div>
     <div class="product-list"><strong style="font-size:14px">Produtos cadastrados</strong><div id="manageList"></div></div>
     </div>
   </div>
@@ -141,20 +146,20 @@ const supabaseConfigured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.
 const supabaseClient = supabaseConfigured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
 const $ = id => document.getElementById(id);
-let products = [], active = 'Todos', query = '', currentUser = null;
+let products = [], departments = [], active = 'Todos', query = '', currentUser = null;
 const categoryOptions = ['Casa','Tecnologia','Beleza','Moda','Ferramentas','Esporte e lazer','Utilidades','Suplementos','Calçados','Segurança','Eletrônicos','Outros'];
 function money(n){return Number(n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function toast(t){let e=$('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2800)}
 function dbProduct(row){return {id:row.id,name:row.name,category:row.category,market:row.market||'Mercado Livre',price:Number(row.price)||0,old:Number(row.old_price)||0,image:row.image_url||'',link:row.affiliate_url||'',desc:row.description||''}}
-function renderCategories(){let cats=['Todos',...new Set(products.map(p=>p.category))];$('categories').innerHTML=cats.map(c=>`<button class="chip ${active===c?'active':''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('');document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{active=b.dataset.cat;render()})}
+function renderCategories(){let cats=['Todos',...new Set([...departments.filter(d=>d.is_active).map(d=>d.name),...products.map(p=>p.category)])];$('categories').innerHTML=cats.map(c=>`<button class="chip ${active===c?'active':''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('');document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{active=b.dataset.cat;render()})}
 function render(){
  renderCategories();
  let list=products.filter(p=>(active==='Todos'||p.category===active)&&(`${p.name} ${p.category} ${p.desc||''} ${p.market}`).toLowerCase().includes(query.toLowerCase()));
  const sort=$('sort').value;if(sort==='low')list.sort((a,b)=>(a.price||0)-(b.price||0));if(sort==='high')list.sort((a,b)=>(b.price||0)-(a.price||0));if(sort==='name')list.sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
  $('count').textContent=`${list.length} produto(s) encontrado(s)`;
- $('products').innerHTML=list.length?list.map(p=>`<article class="product"><div class="product-img">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" onerror="this.remove()">`:`<div class="placeholder">✦</div>`}<span class="tag">${esc(p.market)}</span></div><div class="product-body"><span class="category">${esc(p.category)}</span><h3>${esc(p.name)}</h3><p class="desc">${esc(p.desc||'Confira os detalhes e as condições no marketplace.')}</p><div class="prices">${p.price?`<span class="price">${money(p.price)}</span>`:'<span class="price">Confira o preço</span>'}${p.old>p.price?`<span class="old">${money(p.old)}</span>`:''}</div>${p.link?`<a class="buy" href="${esc(p.link)}" target="_blank" rel="sponsored nofollow noopener">Ver produto ↗</a>`:''}</div></article>`).join(''):'<div class="empty">Ainda estamos organizando as ofertas. Volte em breve para conferir as novidades.</div>';
- if(currentUser) renderManage();
+ $('products').innerHTML=list.length?list.map(p=>`<article class="product"><div class="product-img">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" onerror="this.remove()">`:`<div class="placeholder">✦</div>`}<span class="tag">${esc(p.market)}</span></div><div class="product-body"><span class="category">${esc(p.category)}</span><h3>${esc(p.name)}</h3><p class="desc">${esc(p.desc||'Confira os detalhes e as condições no marketplace.')}</p><div class="prices">${p.price?`<span class="price">${money(p.price)}</span>`:'<span class="price">Confira o preço</span>'}${p.old>p.price?`<span class="old">${money(p.old)}</span>`:''}</div>${p.link?`<a class="buy" href="${esc(p.link)}" target="_blank" rel="sponsored nofollow noopener noreferrer">Ver produto ↗</a>`:''}</div></article>`).join(''):'<div class="empty">Ainda estamos organizando as ofertas. Volte em breve para conferir as novidades.</div>';
+ if(currentUser){renderManage();renderDepartments();}
 }
 function renderManage(){
  $('manageList').innerHTML=products.length?products.map(p=>`<div class="manage-row"><span><strong>${esc(p.name)}</strong><br><span style="color:#667085">${esc(p.market)} · ${esc(p.category)}</span></span><span style="display:flex;gap:7px"><button type="button" data-edit="${esc(p.id)}">Editar</button><button type="button" data-delete="${esc(p.id)}">Excluir</button></span></div>`).join(''):'<p class="hint">Nenhum produto cadastrado.</p>';
@@ -163,16 +168,45 @@ function renderManage(){
 }
 function resetForm(){$('productForm').reset();$('editId').value='';$('saveProduct').textContent='Salvar produto'}
 function editProduct(id){let p=products.find(x=>x.id===id);if(!p)return;$('editId').value=p.id;$('pname').value=p.name;$('pcategory').value=p.category;$('pmarket').value=p.market;$('pprice').value=p.price||'';$('pold').value=p.old||'';$('pimage').value=p.image||'';$('plink').value=p.link||'';$('pdesc').value=p.desc||'';$('saveProduct').textContent='Atualizar produto';$('productForm').scrollIntoView({behavior:'smooth'})}
+async function loadDepartments(){
+  if(!supabaseClient)return;
+  const {data,error}=await supabaseClient.from('departments').select('*').eq('is_active',true).order('name');
+  if(!error) departments=data||[];refreshProductCategoryOptions();
+}
+function refreshProductCategoryOptions(){
+  const select=$('pcategory');if(!select)return;
+  const current=select.value;
+  const names=[...new Set([...categoryOptions,...departments.filter(d=>d.is_active).map(d=>d.name)])];
+  select.innerHTML=names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
+  if(names.includes(current))select.value=current;
+}
+function renderDepartments(){
+  $('departmentList').innerHTML=departments.length?departments.map(d=>`<div class="manage-row"><span>${esc(d.name)}</span><button type="button" data-dept-toggle="${esc(d.id)}">Desativar</button></div>`).join(''):'<p class="hint">Nenhum departamento personalizado ativo.</p>';
+  document.querySelectorAll('[data-dept-toggle]').forEach(b=>b.onclick=()=>toggleDepartment(b.dataset.deptToggle));
+}
+async function addDepartment(){
+  const name=$('newDepartment').value.trim();
+  if(!name){toast('Digite o nome do departamento.');return}
+  const {error}=await supabaseClient.from('departments').insert({name,is_active:true});
+  if(error){toast(error.code==='23505'?'Esse departamento já existe.':'Não foi possível adicionar. Confira a tabela departments no Supabase.');return}
+  $('newDepartment').value='';await loadDepartments();render();toast('Departamento adicionado.');
+}
+async function toggleDepartment(id){
+  const d=departments.find(x=>x.id===id);if(!d)return;
+  const {error}=await supabaseClient.from('departments').update({is_active:false}).eq('id',id);
+  if(error){toast('Não foi possível desativar o departamento.');return}
+  await loadDepartments();render();toast('Departamento desativado. Produtos antigos continuam cadastrados.');
+}
 async function loadProducts(){
  if(!supabaseClient){$('setupWarning').style.display='block';products=[];render();return}
- const {data,error}=await supabaseClient.from('products').select('*').eq('is_active',true).order('created_at',{ascending:false});
+ await loadDepartments();\n  const {data,error}=await supabaseClient.from('products').select('*').eq('is_active',true).order('created_at',{ascending:false});
  if(error){console.error(error);toast('Não foi possível carregar as ofertas. Verifique a configuração do banco.');products=[]}
  else products=data.map(dbProduct);
  render();
 }
 async function loadAdminProducts(){
  if(!currentUser)return;
- const {data,error}=await supabaseClient.from('products').select('*').order('created_at',{ascending:false});
+ await loadDepartments();\n  const {data,error}=await supabaseClient.from('products').select('*').order('created_at',{ascending:false});
  if(error){toast('Erro ao carregar produtos no painel.');return}
  products=data.map(dbProduct);render();
 }
@@ -199,8 +233,10 @@ async function deleteProduct(id){
 $('productForm').onsubmit=async e=>{
  e.preventDefault();if(!currentUser){toast('Entre no painel para continuar.');return}
  const p={name:$('pname').value.trim(),category:$('pcategory').value,market:'Mercado Livre',price:Number($('pprice').value)||null,old_price:Number($('pold').value)||null,image_url:$('pimage').value.trim()||null,affiliate_url:$('plink').value.trim(),description:$('pdesc').value.trim(),is_active:true};
- if(!/^https?:\/\//i.test(p.affiliate_url)){toast('Insira um link de afiliado válido.');return}
- if(p.image_url&&!/^https?:\/\//i.test(p.image_url)){toast('A imagem precisa ter um endereço https:// válido.');return}
+ if(!/^https:\/\//i.test(p.affiliate_url)){toast('O link de afiliado precisa começar com https://');return}
+  let affiliateHost=''; try{affiliateHost=new URL(p.affiliate_url).hostname.toLowerCase()}catch(_){toast('Link de afiliado inválido.');return}
+  if(!(affiliateHost==='meli.la'||affiliateHost.endsWith('.mercadolivre.com.br')||affiliateHost==='mercadolivre.com.br'||affiliateHost.endsWith('.mercadolibre.com')||affiliateHost==='mercadolibre.com')){toast('Use um link HTTPS oficial do Mercado Livre ou meli.la.');return}
+ if(p.image_url&&!/^https:\/\//i.test(p.image_url)){toast('A imagem precisa ter um endereço https:// válido.');return}
  const id=$('editId').value;
  const result=id?await supabaseClient.from('products').update(p).eq('id',id):await supabaseClient.from('products').insert(p);
  if(result.error){console.error(result.error);toast('Erro ao salvar. Confira a conexão e as permissões do administrador.');return}
@@ -214,7 +250,7 @@ $('loginForm').onsubmit=async e=>{
  if(checkError||!allowed){await supabaseClient.auth.signOut();$('authMessage').textContent='Login válido, mas esta conta ainda não foi autorizada como administradora.';return}
  $('authMessage').textContent='';setAuthView(data.user);await loadAdminProducts();
 };
-$('logoutBtn').onclick=async()=>{await supabaseClient.auth.signOut();setAuthView(null);resetForm();toast('Você saiu do painel.')};
+$('addDepartment').onclick=addDepartment;\n$('logoutBtn').onclick=async()=>{await supabaseClient.auth.signOut();setAuthView(null);resetForm();toast('Você saiu do painel.')};
 $('openAdmin').onclick=()=>{$('adminModal').classList.add('open');if(!supabaseClient){$('authMessage').textContent='O Supabase ainda não foi configurado neste arquivo.';return}checkSession()};
 $('closeAdmin').onclick=()=>$('adminModal').classList.remove('open');
 $('adminModal').onclick=e=>{if(e.target.id==='adminModal')e.currentTarget.classList.remove('open')};
