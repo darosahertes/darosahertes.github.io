@@ -199,14 +199,16 @@ async function toggleDepartment(id){
 }
 async function loadProducts(){
  if(!supabaseClient){$('setupWarning').style.display='block';products=[];render();return}
- await loadDepartments();\n  const {data,error}=await supabaseClient.from('products').select('*').eq('is_active',true).order('created_at',{ascending:false});
+ await loadDepartments();
+  const {data,error}=await supabaseClient.from('products').select('*').eq('is_active',true).order('created_at',{ascending:false});
  if(error){console.error(error);toast('Não foi possível carregar as ofertas. Verifique a configuração do banco.');products=[]}
  else products=data.map(dbProduct);
  render();
 }
 async function loadAdminProducts(){
  if(!currentUser)return;
- await loadDepartments();\n  const {data,error}=await supabaseClient.from('products').select('*').order('created_at',{ascending:false});
+ await loadDepartments();
+  const {data,error}=await supabaseClient.from('products').select('*').order('created_at',{ascending:false});
  if(error){toast('Erro ao carregar produtos no painel.');return}
  products=data.map(dbProduct);render();
 }
@@ -250,8 +252,9 @@ $('loginForm').onsubmit=async e=>{
  if(checkError||!allowed){await supabaseClient.auth.signOut();$('authMessage').textContent='Login válido, mas esta conta ainda não foi autorizada como administradora.';return}
  $('authMessage').textContent='';setAuthView(data.user);await loadAdminProducts();
 };
-$('addDepartment').onclick=addDepartment;\n$('logoutBtn').onclick=async()=>{await supabaseClient.auth.signOut();setAuthView(null);resetForm();toast('Você saiu do painel.')};
-$('openAdmin').onclick=()=>{$('adminModal').classList.add('open');if(!supabaseClient){$('authMessage').textContent='O Supabase ainda não foi configurado neste arquivo.';return}checkSession()};
+$('addDepartment').onclick=addDepartment;
+$('logoutBtn').onclick=async()=>{await supabaseClient.auth.signOut();setAuthView(null);resetForm();toast('Você saiu do painel.')};
+$('openAdmin').onclick=(e)=>{e.preventDefault();$('adminModal').classList.add('open');if(!supabaseClient){$('authMessage').textContent='O Supabase ainda não foi configurado neste arquivo.';return}checkSession()};
 $('closeAdmin').onclick=()=>$('adminModal').classList.remove('open');
 $('adminModal').onclick=e=>{if(e.target.id==='adminModal')e.currentTarget.classList.remove('open')};
 $('clearForm').onclick=resetForm;
